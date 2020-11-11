@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import axios from "axios"
 
-export default function TransactionsList({year, month}) {
+export default function TransactionsList({ year, month }) {
     const [list, setList] = useState([])
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         setLoading(true)
         axios
-            .get(`api/transaction?period=${year}-${month}`)
+            .get(`https://finances-api-md.herokuapp.com/api/transaction?period=${year}-${month}`)
             .then(ts => setList(ts.data))
             .catch(e => console.log(e))
-            .finally(()=> setLoading(false))
-        
+            .finally(() => setLoading(false))
+
     }, [year, month])
 
     const renderLine = (data) => {
@@ -20,7 +20,7 @@ export default function TransactionsList({year, month}) {
             <li key={data._id}>
                 <p className="category">{data.category}</p>
                 <p className="description">{data.description}</p>
-                <p className={`value ${(data.type==='+') ? 'positive' : 'negative'}`}>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(data.value)}</p>
+                <p className={`value ${(data.type === '+') ? 'positive' : 'negative'}`}>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(data.value)}</p>
             </li>
         )
     }
