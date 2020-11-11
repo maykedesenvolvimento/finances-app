@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
+import http from "../http-common"
 
 export default function TransactionsList({ year, month }) {
     const [list, setList] = useState([])
@@ -7,7 +8,7 @@ export default function TransactionsList({ year, month }) {
 
     useEffect(() => {
         setLoading(true)
-        axios
+        http
             .get(`https://finances-api-md.herokuapp.com/api/transaction?period=${year}-${month}`)
             .then(ts => setList(ts.data))
             .catch(e => console.log(e))
