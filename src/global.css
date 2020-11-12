@@ -42,8 +42,8 @@ ul {
 li {
   background: #eee;
   text-align: center;
-  width: 280px;
-  height: 120px;
+  width: 240px;
+  height: 80px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -55,7 +55,7 @@ li {
 }
 
 .category {
-  font-size: 12pt;
+  font-size: 11pt;
   font-weight: 600;
   color: #333;
 }
@@ -65,6 +65,7 @@ li {
 }
 
 .value {
+  font-size: 11pt;
   font-weight: 700;
   border-radius: 2px;
   margin: 0 auto;
@@ -88,8 +89,15 @@ button {
   height: 2rem;
 }
 
-select {
+select{
   width: 6rem;
+}
+
+input {
+  height: 1.5rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 10pt;
+  width: 10rem;
 }
 
 .lds-ellipsis {
