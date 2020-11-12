@@ -5,6 +5,7 @@ export default function App() {
   const [current, setCurrent] = useState(0)
   const [dates, setDates] = useState([])
   const [arg, setArg] = useState('')
+  const [adding, SetAdding] = useState(false)
 
   useEffect(() => {
     const y = new Date().getFullYear()
@@ -35,14 +36,18 @@ export default function App() {
       <header className="center">
         <h3>Controle financeiro</h3>
         <div className="calendar">
-          <button onClick={handleClick}>{'<'}</button>
-          <select onChange={changeCurrent} value={current}>
-            {dates.map((d, index) => <option key={index} value={index}>{`${d.year}/${d.month}`}</option>)}
-          </select>
-          <button onClick={handleClick}>{'>'}</button>
+          <p>Período: </p>
+          <div>
+            <button onClick={handleClick}>{'<'}</button>
+            <select onChange={changeCurrent} value={current}>
+              {dates.map((d, index) => <option key={index} value={index}>{`${d.year}/${d.month}`}</option>)}
+            </select>
+            <button onClick={handleClick}>{'>'}</button>
+          </div>
         </div>
         <div className="search">
           <input type="text" onChange={changeArg} value={arg} />
+          <button onClick={handleClick}>Adicionar</button>
         </div>
       </header>
       <main>{current && <TransactionsList year={dates[current].year} month={dates[current].month} arg={arg} />}</main>
