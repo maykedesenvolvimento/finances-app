@@ -33,6 +33,39 @@ header {
 
 .center {
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center > input {
+  margin-left: 0.5rem;
+}
+
+.center > label {
+  margin-right: auto;
+}
+
+.center > button {
+  border: 1px solid #333;
+  border-radius: 4px;
+  margin: 1rem auto 1rem 0;
+}
+
+button {
+  cursor: pointer !important;
+}
+
+.primary {
+  margin-right: 0 !important;
+  margin-left: auto;
+  border-color: #2980b9 !important;
+  background-color: #3498db;
+  color: #fff;
+}
+
+h4 {
+  margin: 0.5rem auto 2rem auto;
 }
 
 main {
@@ -44,6 +77,25 @@ ul {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+}
+
+.form {
+  background: #eee;
+  text-align: center;
+  width: fit-content;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 7px rgba(82, 79, 79, 0.25);
+  margin: 2rem auto;
+  padding: 1rem 2rem 0 2rem;
+}
+
+input[type=radio] {
+  margin-right: 0.2rem;
+}
+
+.form > div {
+  margin: 1rem auto;
 }
 
 li {
@@ -123,7 +175,7 @@ select{
   width: 5rem;
 }
 
-input {
+input{
   height: 1.4rem;
   padding: 0.2rem 0.5rem;
   font-size: 10pt;
