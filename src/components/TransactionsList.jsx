@@ -14,11 +14,6 @@ export default function TransactionsList({ year, month, arg, callBack }) {
         final: 0
     })
 
-    useEffect(() => {
-        setLoading(true)
-        loadApiData()
-    }, [month, year])
-
     const loadApiData = () => http
         .get(`api/transaction?period=${year}-${month}`)
         .then(ts => setList(ts.data))
@@ -26,12 +21,21 @@ export default function TransactionsList({ year, month, arg, callBack }) {
         .finally(() => setLoading(false))
 
     useEffect(() => {
-        setFiltered(list.filter(item => item.description.toLowerCase().includes(arg)))
-        const incomes = list.filter(item => item.type === "+").reduce((acc, val) => acc + val.value, 0)
-        const expanses = list.filter(item => item.type === "-").reduce((acc, val) => acc + val.value, 0)
-        const count = list.length
-        setBalance({ incomes, expanses, count, final: incomes - expanses })
+        setLoading(true)
+        loadApiData()
+    }, [month, year])
+
+    useEffect(() => {
+        setFiltered(list.filter(item => item.description.toLowerCase().includes(arg) || item.category.toLowerCase().includes(arg)))
+
     }, [arg, list])
+
+    useEffect(() => {
+        const incomes = filtered.filter(item => item.type === "+").reduce((acc, val) => acc + val.value, 0)
+        const expanses = filtered.filter(item => item.type === "-").reduce((acc, val) => acc + val.value, 0)
+        const count = filtered.length
+        setBalance({ incomes, expanses, count, final: incomes - expanses })
+    }, [filtered])
 
     const remove = (id) => {
         http.delete(`api/transaction/${id}`)
