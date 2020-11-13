@@ -11,6 +11,17 @@
   min-height: 100vh;
 }
 
+.icons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.icons img{
+  padding: 0.2rem;
+  width: 1rem;
+  height: 1rem;
+}
+
 header {
   background-color: #566677;
   border-bottom: 1px solid #34495e;

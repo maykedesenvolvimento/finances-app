@@ -6,7 +6,8 @@ export default function App() {
   const [current, setCurrent] = useState(null)
   const [dates, setDates] = useState([])
   const [arg, setArg] = useState("")
-  const [creating, setCreating] = useState(true)
+  const [editing, setEditing] = useState(false)
+  const [id, setId] = useState("")
 
   useEffect(() => {
     const y = new Date().getFullYear()
@@ -23,18 +24,21 @@ export default function App() {
 
   const changeCurrent = (event) => {
     setCurrent(event.target.value)
-    setCreating(false)
+    setEditing(false)
   }
   const changeArg = (event) => setArg(event.target.value)
-  const callBack = () => setCreating(false)
+  const callBack = (val) => {
+    setEditing(val ? true : false)
+    if (val) setId(val)
+  }
 
   const handleClick = (event) => {
-    const i = (event.target.innerHTML === "&lt;") ? -1 : 1
-    let cont = current + i;
-    if (cont < 0) cont = 0
-    else if (cont > 35) cont = 35
-    setCurrent(cont)
-    setCreating(false)
+    const cont = (event.target.innerHTML === "&lt;") ? current - 1 : current + 1
+
+    if (cont >= 0 && cont < dates.length) {
+      setCurrent(cont)
+      setEditing(false)
+    }
   }
 
   return (
@@ -52,15 +56,18 @@ export default function App() {
           </div>
         </div>
         <div className="search">
-          <input type="text" onChange={changeArg} value={arg} disabled={creating} />
-          <button onClick={() => setCreating(true)} disabled={creating}>Adicionar</button>
+          <input type="text" onChange={changeArg} value={arg} disabled={editing} />
+          <button onClick={() => {
+            setId("")
+            setEditing(true)
+          }} disabled={editing}>Adicionar</button>
         </div>
       </header>
       <main>{
-        creating &&
-        <Transaction callBack={callBack} /> ||
+        editing &&
+        <Transaction callBack={callBack} id={id} /> ||
         current &&
-        <TransactionsList year={dates[current].year} month={dates[current].month} arg={arg} />
+        <TransactionsList year={dates[current]?.year} month={dates[current]?.month} arg={arg} callBack={callBack} />
       }</main>
     </div>
   )
